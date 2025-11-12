@@ -5,6 +5,8 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
+let geojsonLayer; // Declare a variable to hold the L.geoJSON instance
+
 /**
  * Gets color based on the population value.
  * We are using a simple 3-tier scale here based on the colors you provided.
@@ -149,8 +151,10 @@ async function initializeMap() {
     // Merge the data only after both datasets are fully loaded
     const geojsonWithPopulation = mergePopulationData(geojsonData, populationData);
 
-    // Add the layer to the map (assuming 'L' and 'map' are defined in your environment)
-    L.geoJSON(geojsonWithPopulation, {}).addTo(map);
+    geojsonLayer = L.geoJSON(geojsonWithPopulation, {
+        style: style,
+        onEachFeature: onEachFeature // Attach interaction listeners
+    }).addTo(map);
 
     // Optional: Fit map bounds to the new layer
     // map.fitBounds(L.geoJSON(geojsonWithPopulation).getBounds());
