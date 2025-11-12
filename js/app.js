@@ -5,6 +5,29 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);
 
+/**
+ * Gets color based on the population value.
+ * We are using a simple 3-tier scale here based on the colors you provided.
+ */
+function getColor(population) {
+    // These thresholds should ideally be calculated based on your actual data distribution (quantiles/percentiles),
+    // but for simplicity, we'll assume standard ranges as a starting point.
+    // Replace these thresholds (e.g., 5000000, 10000000) with values that fit your data's range.
+
+    // Using your provided colors from least to most populous:
+    const colorLight = '#efedf5';
+    const colorMedium = '#bcbddc';
+    const colorDark = '#756bb1';
+
+    if (population > 50000000) {      // Example: Over 5 Crore
+        return colorDark;
+    } else if (population > 10000000) { // Example: Over 1 Crore
+        return colorMedium;
+    } else {
+        return colorLight;
+    }
+}
+
 // Function to merge the population data with india states geojson
 function mergePopulationData(geojson, population) {
   if (!population) {
