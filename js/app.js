@@ -39,6 +39,40 @@ function style(feature) {
     };
 }
 
+// Create a custom Leaflet Control
+const info = L.control();
+
+info.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+    this.update();
+    return this._div;
+};
+
+// Method that we will use to update the control's content
+info.update = function (props) {
+    this._div.innerHTML = '<h4>India State Population</h4>' +  (props ?
+        `<b>${props.STNAME_SH}</b><br/>` +
+        `Population: <b>${formatPopulation(props.population)}</b>`
+        : 'Hover over a state');
+};
+
+info.addTo(map);
+
+// Helper function to format population nicely into Crores and Lakhs
+function formatPopulation(num) {
+    if (num >= 10000000) {
+        // Format into Crores (1 Crore = 10 million)
+        return `${(num / 10000000).toFixed(2)} Crore(s)`;
+    } else if (num >= 100000) {
+        // Format into Lakhs (1 Lakh = 100 thousand)
+        return `${(num / 100000).toFixed(2)} Lakh(s)`;
+    } else if (num === undefined) {
+      return 'N/A';
+    } else {
+        return `${num.toLocaleString()} people`;
+    }
+}
+
 // Function to merge the population data with india states geojson
 function mergePopulationData(geojson, population) {
   if (!population) {
