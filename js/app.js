@@ -58,6 +58,43 @@ info.update = function (props) {
 
 info.addTo(map);
 
+function highlightFeature(e) {
+    const layer = e.target;
+
+    // Set highlight style
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.9
+    });
+
+    // Bring the highlighted layer to the front in some browsers/cases
+    if (!L.Browser.ie && L.Browser.opera && L.Browser.chrome) {
+        layer.bringToFront();
+    }
+
+    // Update the info control with the current state's properties
+    info.update(layer.feature.properties);
+}
+
+function resetHighlight(e) {
+    // This assumes 'geojsonLayer' is a variable holding your L.geoJSON instance
+    if (geojsonLayer) {
+        geojsonLayer.resetStyle(e.target);
+    }
+    info.update(); // Reset the info box to default text
+}
+
+// Function to attach these event listeners to each feature when it's created
+function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        // click: zoomToFeature // Optional: You can add a click-to-zoom function here
+    });
+}
+
 // Helper function to format population nicely into Crores and Lakhs
 function formatPopulation(num) {
     if (num >= 10000000) {
