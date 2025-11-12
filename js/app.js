@@ -41,24 +41,6 @@ function style(feature) {
     };
 }
 
-// Create a custom Leaflet Control
-const info = L.control();
-
-info.onAdd = function (map) {
-    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-    this.update();
-    return this._div;
-};
-
-// Method that we will use to update the control's content
-info.update = function (props) {
-    this._div.innerHTML = '<h4>India State Population</h4>' +  (props ?
-        `<b>${props.STNAME_SH}</b><br/>` +
-        `Population: <b>${formatPopulation(props.population)}</b>`
-        : 'Hover over a state');
-};
-
-info.addTo(map);
 
 function highlightFeature(e) {
     const layer = e.target;
@@ -85,11 +67,25 @@ function resetHighlight(e) {
     if (geojsonLayer) {
         geojsonLayer.resetStyle(e.target);
     }
-    info.update(); // Reset the info box to default text
 }
 
 // Function to attach these event listeners to each feature when it's created
 function onEachFeature(feature, layer) {
+  // 1. Create the content for the tooltip
+    const props = feature.properties;
+    const tooltipContent = `
+        <b>${props.STNAME_SH}</b><br/>
+        Population: <b>${formatPopulation(props.population)}</b>
+    `;
+
+    // 2. Bind a tooltip to the layer
+    layer.bindTooltip(tooltipContent, {
+        permanent: false, // Only show on hover
+        direction: 'auto', // Position the tooltip automatically
+        sticky: true       // Makes the tooltip follow the mouse pointer within the state
+    });
+    
+    // Keep the highlighting effects if you want them
     layer.on({
         mouseover: highlightFeature,
         mouseout: resetHighlight,
