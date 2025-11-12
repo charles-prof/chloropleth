@@ -28,6 +28,17 @@ function getColor(population) {
     }
 }
 
+function style(feature) {
+    return {
+        fillColor: getColor(feature.properties.population),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
 // Function to merge the population data with india states geojson
 function mergePopulationData(geojson, population) {
   if (!population) {
