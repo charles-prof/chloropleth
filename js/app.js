@@ -27,15 +27,40 @@ function mergeRainfallData(geojson, rainfallData) {
   return geojson;
 }
 
-fetch('https://cdn.jsdelivr.net/gh/udit-001/india-maps-data@8d907bc/geojson/states/tamil-nadu.geojson')
-            .then(response => response.json()) // Parse the response into a JSON object
-            .then(data => {
-                // 4. Add the GeoJSON data to the map once loaded
-                L.geoJSON(data, { style: mapStyle }).addTo(map);
-                // Optional: Fit the map bounds to the new GeoJSON layer
-                // map.fitBounds(L.geoJSON(data).getBounds());
-            })
-            .catch(error => {
-                // Handle any errors during the fetch operation
-                console.log(`Error fetching GeoJSON: ${error}`);
-            });
+// Main asynchronous function to fetch data and initialize the map
+async function initializeMap() {
+  try {
+    // Fetch both datasets concurrently for better performance
+    const [rainResponse, geojsonResponse] = await Promise.all([
+      fetch("./data/tn-rainfall.json"),
+      fetch("https://cdn.jsdelivr.net/gh/udit-001/india-maps-data@8d907bc/geojson/states/tamil-nadu.geojson")
+    ]);
+
+    // Check for HTTP errors immediately after receiving responses
+    if (!rainResponse.ok) throw new Error(`HTTP error fetching population: ${popResponse.status}`);
+    if (!geojsonResponse.ok) throw new Error(`HTTP error fetching geojson: ${geojsonResponse.status}`);
+
+    // Parse both responses to JSON concurrently
+    const [rainfallData, geojsonData] = await Promise.all([
+      rainResponse.json(),
+      geojsonResponse.json()
+    ]);
+
+    // Merge the data only after both datasets are fully loaded
+    const geojsonWithData = mergeRainfallData(geojsonData, rainfallData);
+
+    geojsonLayer = L.geoJSON(geojsonWithdata).addTo(map);
+
+    // Optional: Fit map bounds to the new layer
+    // map.fitBounds(L.geoJSON(geojsonWithData).getBounds());
+
+    console.log("Map layers successfully loaded and merged.");
+
+  } catch (error) {
+    // Handle any errors from fetching, parsing, or merging
+    console.error(`An error occurred during map initialization: ${error}`);
+  }
+}
+
+// Call the main function to start the process
+initializeMap();
