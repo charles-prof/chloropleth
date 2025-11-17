@@ -10,6 +10,23 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
+// Function to merge the rainfall data to the tamilnadu districts outline
+function mergeRainfallData(geojson, rainfallData) {
+  if (!rainfallData) {
+    console.error("Rainfall data is missing or undefined.");
+    return geojson;
+  }
+
+  geojson.features.forEach((feature) => {
+    const districtName = feature.properties.district;
+    if (rainfallData[districtName]) {
+      // find the rainfall difference to the properties
+      feature.properties.rainfall = rainfallData[districtName].Actual - rainfallData[districtName].Normal;
+    }
+  });
+  return geojson;
+}
+
 fetch('https://cdn.jsdelivr.net/gh/udit-001/india-maps-data@8d907bc/geojson/states/tamil-nadu.geojson')
             .then(response => response.json()) // Parse the response into a JSON object
             .then(data => {
