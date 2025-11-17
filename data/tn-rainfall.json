@@ -1,0 +1,130 @@
+{
+  "Chennai": {
+    "Actual": 1322.2,
+    "Normal": 1324.2
+  },
+  "Kancheepuram": {
+    "Actual": 964.8,
+    "Normal": 1227.7
+  },
+  "Thiruvallur": {
+    "Actual": 1006,
+    "Normal": 1139.6
+  },
+  "Cuddalore": {
+    "Actual": 1203.1,
+    "Normal": 1206.7
+  },
+  "Villupuram": {
+    "Actual": 992.7,
+    "Normal": 1011.6
+  },
+  "Vellore": {
+    "Actual": 750.8,
+    "Normal": 936.2
+  },
+  "Tiruvannamalai": {
+    "Actual": 871.9,
+    "Normal": 1040
+  },
+  "Salem": {
+    "Actual": 1001.5,
+    "Normal": 997.9
+  },
+  "Namakkal": {
+    "Actual": 682.8,
+    "Normal": 793.4
+  },
+  "Dharmapuri": {
+    "Actual": 883.6,
+    "Normal": 902.1
+  },
+  "Krishnagiri": {
+    "Actual": 800.4,
+    "Normal": 850.7
+  },
+  "Tiruppur": {
+    "Actual": 957.9,
+    "Normal": 618.2
+  },
+  "Coimbatore": {
+    "Actual": 1418.1,
+    "Normal": 689.3
+  },
+  "Erode": {
+    "Actual": 911.9,
+    "Normal": 702.9
+  },
+  "Tiruchirappalli": {
+    "Actual": 625.7,
+    "Normal": 818
+  },
+  "Karur": {
+    "Actual": 653.6,
+    "Normal": 655
+  },
+  "Perambalur": {
+    "Actual": 857.6,
+    "Normal": 861.9
+  },
+  "Pudukkottai": {
+    "Actual": 895.4,
+    "Normal": 887.4
+  },
+  "Thanjavur": {
+    "Actual": 964.6,
+    "Normal": 1013.1
+  },
+  "Thiruvarur": {
+    "Actual": 1274.6,
+    "Normal": 1173.3
+  },
+  "Nagapattinam": {
+    "Actual": 1418.5,
+    "Normal": 1393.3
+  },
+  "Madurai": {
+    "Actual": 876.2,
+    "Normal": 927.9
+  },
+  "Theni": {
+    "Actual": 1107.9,
+    "Normal": 720
+  },
+  "Dindigul": {
+    "Actual": 1139.3,
+    "Normal": 930.7
+  },
+  "Ramanathapuram": {
+    "Actual": 985.5,
+    "Normal": 807.8
+  },
+  "Virudhunagar": {
+    "Actual": 663.5,
+    "Normal": 820.1
+  },
+  "Sivagangai": {
+    "Actual": 1056.7,
+    "Normal": 872.8
+  },
+  "Tirunelveli": {
+    "Actual": 1303.7,
+    "Normal": 845.1
+  },
+  "Thoothukkudi": {
+    "Actual": 790.2,
+    "Normal": 656.3
+  },
+  "The Nilgiris": {
+    "Actual": 2101.2,
+    "Normal": 1522.7
+  },
+  "Ariyalur": {
+    "Actual": 684.1,
+    "Normal": 1071.8
+  },
+  "Kanniyakumari": {
+    "Actual": 1409.9,
+    "Normal": 1302.5
+  }
+}
